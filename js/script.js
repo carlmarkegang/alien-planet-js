@@ -57,26 +57,8 @@ function draw() {
     text(background_text_array[i].text, background_text_array[i].position.x + 2, background_text_array[i].position.y + 8);
   }
 
-  // Shadow
-  fill(color(0, 0, 0));
-  for (let i = 0; i < obstacle_array.length; i++) {
-    //ellipse(obstacle_array[i].position.x + 2, obstacle_array[i].position.y + 2, obstacle_array[i].radius * 2, obstacle_array[i].radius * 2);
-  }
-  // Shadow rect
-  for (let i = 0; i < obstacle_array_rect.length; i++) {
-    if (i < 35) {
-      rect(obstacle_array_rect[i].position.x + 2, obstacle_array_rect[i].position.y + 2, obstacle_array_rect[i].width, obstacle_array_rect[i].height);
-    }
-  }
-  // Shadow enemy 3
-  for (let e_3 = 0; e_3 < enemy_3.length; e_3++) {
-    for (var i2 = 0; i2 < enemy_3[e_3].segments.length - 1; i2++) {
-      //enemy_3DragSegment(i2 + 1, enemy_3[e_3].segments[i2].x, enemy_3[e_3].segments[i2].y, enemy_3[e_3], [0, 0, 0]);
-    }
-  }
-
   // Obstacle
-  fill(color(17, 12, 4))
+  fill(color(17, 12, 4));
   for (let i = 0; i < obstacle_array.length; i++) {
     //ellipse(obstacle_array[i].position.x, obstacle_array[i].position.y, obstacle_array[i].radius * 2, obstacle_array[i].radius * 2);
     image(img_ball, obstacle_array[i].position.x - (obstacle_array[i].radius * 2 / 2), obstacle_array[i].position.y - (obstacle_array[i].radius * 2 / 2), obstacle_array[i].radius * 2, obstacle_array[i].radius * 2);
@@ -94,8 +76,17 @@ function draw() {
   // Obstacle rect
   for (let i = 0; i < obstacle_array_rect.length; i++) {
     if (i < 35) {
+      fill(color(0, 0, 0));
+      rect(obstacle_array_rect[i].position.x + 2, obstacle_array_rect[i].position.y + 2, obstacle_array_rect[i].width, obstacle_array_rect[i].height);
+      fill(color(17, 12, 4));
       rect(obstacle_array_rect[i].position.x, obstacle_array_rect[i].position.y, obstacle_array_rect[i].width, obstacle_array_rect[i].height);
     } else {
+      if (i % 2 == 0) {
+        fill(color(17, 12, 4));
+        rect(obstacle_array_rect[i].position.x + 5, obstacle_array_rect[i].position.y + 19, 1, i - 10);
+        rect(obstacle_array_rect[i].position.x + 15, obstacle_array_rect[i].position.y + 19, 1, i - 20);
+      }
+
       image(img_block, obstacle_array_rect[i].position.x, obstacle_array_rect[i].position.y, obstacle_array_rect[i].width, obstacle_array_rect[i].height);
     }
 
