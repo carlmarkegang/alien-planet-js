@@ -3,28 +3,8 @@ let obstacle_array_rect = [];
 let background_text_array = [];
 let resolutionX = 640;
 let resolutionY = 360;
-let map = 4;
+let map = 1;
 let debugMode = false;
-
-function create_obstacle(x, y, radius) {
-  this.position = new p5.Vector(x, y);
-  this.radius = radius;
-}
-
-function create_obstacle_rect(x, y, width, height, haveCollision = true) {
-  this.position = new p5.Vector(x, y);
-  this.width = width;
-  this.height = height;
-  this.haveCollision = haveCollision;
-}
-
-function create_background_text(x, y, width, height, text, color) {
-  this.position = new p5.Vector(x, y);
-  this.width = width;
-  this.height = height;
-  this.text = text;
-  this.color = color;
-}
 
 function preload() {
   img_background = loadImage("images/background.png");
