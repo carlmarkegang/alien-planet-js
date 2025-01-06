@@ -1,9 +1,5 @@
-let obstacle_array = [];
-let obstacle_array_rect = [];
-let background_text_array = [];
 let resolutionX = 640;
 let resolutionY = 360;
-let map = 1;
 let debugMode = false;
 
 function preload() {
@@ -21,12 +17,12 @@ function setup() {
 
 function draw() {
   background(color(221, 233, 202));
-  if(map < 5){
+  if (map < 5) {
     image(img_background, 0, 0, resolutionX, resolutionY);
   } else {
     image(img_background_2, 0, 0, resolutionX, resolutionY);
   }
-  
+
   strokeWeight(0);
   playerMovement();
   jumpMovement();
@@ -61,7 +57,7 @@ function draw() {
 
   // Obstacle rect
   for (let i = 0; i < obstacle_array_rect.length; i++) {
-    if (i < 35) {
+    if (obstacle_array_rect[i].image == false) {
       fill(color(0, 0, 0));
       rect(obstacle_array_rect[i].position.x + 2, obstacle_array_rect[i].position.y + 2, obstacle_array_rect[i].width, obstacle_array_rect[i].height);
       fill(color(17, 12, 4));
