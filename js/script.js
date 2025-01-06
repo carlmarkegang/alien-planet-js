@@ -3,7 +3,7 @@ let obstacle_array_rect = [];
 let background_text_array = [];
 let resolutionX = 640;
 let resolutionY = 360;
-let map = 1;
+let map = 4;
 let debugMode = false;
 
 function create_obstacle(x, y, radius) {
@@ -28,6 +28,7 @@ function create_background_text(x, y, width, height, text, color) {
 
 function preload() {
   img_background = loadImage("images/background.png");
+  img_background_2 = loadImage("images/background_2.png");
   img_block = loadImage("images/block.png");
   img_ball = loadImage("images/ball.png");
 }
@@ -40,7 +41,12 @@ function setup() {
 
 function draw() {
   background(color(221, 233, 202));
-  image(img_background, 0, 0, resolutionX, resolutionY);
+  if(map < 5){
+    image(img_background, 0, 0, resolutionX, resolutionY);
+  } else {
+    image(img_background_2, 0, 0, resolutionX, resolutionY);
+  }
+  
   strokeWeight(0);
   playerMovement();
   jumpMovement();

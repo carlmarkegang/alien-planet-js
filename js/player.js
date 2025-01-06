@@ -20,24 +20,41 @@ function playerMovement() {
   player[0].position.x += player[0].vel_x;
   player[0].position.y += player[0].vel_y;
 
-  if (randomInt(0, 20) == 0 && player[0].bloodCollectedLevel > 0 && player[0].isAttached == false) {
+  if (randomInt(0, 50) == 0 && player[0].bloodCollectedLevel > 0 && player[0].isAttached == false) {
     player[0].bloodCollectedLevel -= 5;
   }
 
   // Falling
-  if (player[0].position.y < resolutionY - player[0].radius - 20) {
+  if (map == 4) {
+    // Exception for map 4
     player[0].vel_y += 0.1;
-
-    if (player[0].isAttached == true) {
-      for (let i = 0; i < player[0].segments.length; i++) {
-        player[0].segments[i].y += 2;
-      }
+    if (player[0].position.y > resolutionY && player[0].position.x < 360) {
+      player[0].position.y = resolutionY - player[0].radius - 20;
+      player[0].vel_y = 0;
+    } 
+    if (player[0].position.y > resolutionY && player[0].position.x > 360) {
+      map = 5;
+      loadMap(map);
+      player[0].position.y = 0;
+      player[0].position.x = 40;
     }
   } else {
-    player[0].position.y = resolutionY - player[0].radius - 20;
-    player[0].vel_y = 0;
-    player[0].jumped = false;
+
+    if (player[0].position.y < resolutionY - player[0].radius - 20) {
+      player[0].vel_y += 0.1;
+
+      if (player[0].isAttached == true) {
+        for (let i = 0; i < player[0].segments.length; i++) {
+          player[0].segments[i].y += 2;
+        }
+      }
+    } else {
+      player[0].position.y = resolutionY - player[0].radius - 20;
+      player[0].vel_y = 0;
+      player[0].jumped = false;
+    }
   }
+
 
   var maxSpeed = 2;
 
@@ -152,13 +169,15 @@ function navigateToNextMap() {
     player[0].vel_y = 0;
     map++;
   }
+  /*
   if (player[0].position.x < -50 && map > 1) {
     player[0].position.x = resolutionX + 20;
     player[0].position.y = player[0].position.y - 25;
     player[0].vel_y = 0;
     map--;
   }
-  if (player[0].position.x < 0 && map == 1) {
+  */
+  if (player[0].position.x < 0) {
     player[0].position.x = 0;
   }
 

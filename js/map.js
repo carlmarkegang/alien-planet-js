@@ -75,7 +75,26 @@ function loadMap(mapInt) {
     }
   }
 
-  if (map > 3) {
+  if (map == 4) {
+    enemy_3 = [];
+    obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
+    obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
+    obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
+    obstacle_array_rect.push(new create_obstacle_rect(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20, 20));
+    obstacle_array_rect.push(new create_obstacle_rect(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20, 20));
+    obstacle_array_rect.push(new create_obstacle_rect(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20, 20));
+
+    for (let i = 0; i < obstacle_array_rect.length; i++) {
+      if(i >= 20 && i <= 35){
+        obstacle_array_rect[i].position.x = -20;
+      }
+      
+      obstacle_array_rect[i].haveCollision = true;
+    }
+
+  }
+
+  if (map > 4) {
     obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
     obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
     obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
