@@ -42,9 +42,28 @@ function draw() {
   // Obstacle
   fill(color(17, 12, 4));
   for (let i = 0; i < obstacle_array.length; i++) {
+
+    // Shadow
+    if (map > 4) {
+      strokeWeight(obstacle_array[i].radius * 2);
+      stroke(color(0, 0, 0, 100));
+      let directionX = obstacle_array[i].position.x - player[0].position.x;
+      let directionY = obstacle_array[i].position.y - player[0].position.y;
+      let length = Math.sqrt(directionX * directionX + directionY * directionY);
+      let unitX = directionX / length;
+      let unitY = directionY / length;
+      let shadowLength = 500;
+      let shadowX = obstacle_array[i].position.x + unitX * shadowLength;
+      let shadowY = obstacle_array[i].position.y + unitY * shadowLength;
+      line(obstacle_array[i].position.x, obstacle_array[i].position.y, shadowX, shadowY);
+      strokeWeight(0);
+    }
+
     //ellipse(obstacle_array[i].position.x, obstacle_array[i].position.y, obstacle_array[i].radius * 2, obstacle_array[i].radius * 2);
     image(img_ball, obstacle_array[i].position.x - (obstacle_array[i].radius * 2 / 2), obstacle_array[i].position.y - (obstacle_array[i].radius * 2 / 2), obstacle_array[i].radius * 2, obstacle_array[i].radius * 2);
     collisionCheck(obstacle_array[i], player[0]);
+
+
 
     for (let e_1 = 0; e_1 < enemy_1.length; e_1++) {
       collisionCheck(obstacle_array[i], enemy_1[e_1]);
@@ -63,13 +82,34 @@ function draw() {
       fill(color(17, 12, 4));
       rect(obstacle_array_rect[i].position.x, obstacle_array_rect[i].position.y, obstacle_array_rect[i].width, obstacle_array_rect[i].height);
     } else {
+      // Vines
       if (i % 2 == 0) {
         fill(color(17, 12, 4));
         rect(obstacle_array_rect[i].position.x + 5, obstacle_array_rect[i].position.y + 19, 1, i - 10);
         rect(obstacle_array_rect[i].position.x + 15, obstacle_array_rect[i].position.y + 19, 1, i - 20);
       }
 
+      
+      // Shadow
+      if (map > 4) {
+        strokeWeight(obstacle_array_rect[i].width);
+        stroke(color(0, 0, 0, 100));
+        fill(color(0, 0, 0, 100));
+        let directionX = obstacle_array_rect[i].position.x - player[0].position.x;
+        let directionY = obstacle_array_rect[i].position.y - player[0].position.y;
+        let length = Math.sqrt(directionX * directionX + directionY * directionY);
+        let unitX = directionX / length;
+        let unitY = directionY / length;
+        let shadowLength = 500;
+        let shadowX = obstacle_array_rect[i].position.x + unitX * shadowLength;
+        let shadowY = obstacle_array_rect[i].position.y + unitY * shadowLength;
+        line(obstacle_array_rect[i].position.x + (obstacle_array_rect[i].width/2) , obstacle_array_rect[i].position.y + (obstacle_array_rect[i].height/2), shadowX, shadowY);
+        strokeWeight(0);
+        rect(obstacle_array_rect[i].position.x, obstacle_array_rect[i].position.y, obstacle_array_rect[i].width, obstacle_array_rect[i].height);
+      }
+
       image(img_block, obstacle_array_rect[i].position.x, obstacle_array_rect[i].position.y, obstacle_array_rect[i].width, obstacle_array_rect[i].height);
+
     }
 
     if (obstacle_array_rect[i].haveCollision) {
