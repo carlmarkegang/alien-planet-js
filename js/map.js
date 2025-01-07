@@ -2,6 +2,7 @@ let obstacle_array = [];
 let obstacle_array_rect = [];
 let background_text_array = [];
 let map = 1;
+let loopCompleted = false;
 
 function create_obstacle(x, y, radius) {
   this.position = new p5.Vector(x, y);
@@ -65,12 +66,7 @@ function loadMap(mapInt) {
 
 
   if (map == 1) {
-    obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
-    obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
-    obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
-    obstacle_array_rect.push(new create_obstacle_rect(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20, 20));
-    obstacle_array_rect.push(new create_obstacle_rect(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20, 20));
-    obstacle_array_rect.push(new create_obstacle_rect(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20, 20));
+
   }
 
   if (map == 2) {
@@ -120,26 +116,16 @@ function loadMap(mapInt) {
 
   }
 
-  if (map == 7) {
-    var wallY = 98;
-    for (let i = 0; i < 11; i++) {
-      obstacle_array_rect.push(new create_obstacle_rect(resolutionX - 22, wallY, 20, 20, false));
-      wallY += 22;
-    }
 
-    obstacle_array_rect.push(new create_obstacle_rect(resolutionX - 80, 40, 20, 20));
-    obstacle_array_rect.push(new create_obstacle_rect(resolutionX - 100, 100, 20, 20));
-    obstacle_array_rect.push(new create_obstacle_rect(resolutionX - 80, 250, 20, 20));
-    obstacle_array_rect.push(new create_obstacle_rect(resolutionX - 150, 150, 20, 20));
-  }
 
   if (map == 8) {
     player[0].position.y = resolutionY - 80;
     map = 1;
+    loopCompleted = true;
     loadMap(map);
   }
 
-  if (map > 4) {
+  if (loopCompleted == false && map > 4) {
     obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
     obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
     obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
@@ -155,6 +141,34 @@ function loadMap(mapInt) {
 
     for (let i = 0; i < 5; i++) {
       enemy_4.push(new create_enemy_4(randomInt(0, resolutionX), resolutionY - 20, 0, 0));
+    }
+  }
+
+  if (map == 7) {
+    enemy_1 = [];
+    var wallY = 98;
+    for (let i = 0; i < 11; i++) {
+      obstacle_array_rect.push(new create_obstacle_rect(resolutionX - 22, wallY, 20, 20, false));
+      wallY += 22;
+    }
+
+    obstacle_array_rect.push(new create_obstacle_rect(resolutionX - 80, 40, 20, 20));
+    obstacle_array_rect.push(new create_obstacle_rect(resolutionX - 100, 100, 20, 20));
+    obstacle_array_rect.push(new create_obstacle_rect(resolutionX - 80, 250, 20, 20));
+    obstacle_array_rect.push(new create_obstacle_rect(resolutionX - 150, 150, 20, 20));
+  }
+
+  if (loopCompleted == true && map == 5) {
+    for (let i = 0; i < 7; i++) {
+      obstacle_array.push(new create_obstacle(randomInt(0, resolutionX), randomInt(0, resolutionY) - 40, 20));
+    }
+
+    for (let i = 0; i < 7; i++) {
+      enemy_1.push(new create_enemy_1(resolutionX + randomInt(50, 200), randomInt(0, resolutionY - 20), -0.5, -0.1));
+    }
+
+    for (let i = 0; i < 10; i++) {
+      friend.push(new create_friend(randomInt(0, resolutionX), resolutionY - 20, randomInt(-1, 1), 0));
     }
   }
 

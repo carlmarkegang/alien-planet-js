@@ -14,7 +14,7 @@ function create_player(x, y, vel_x, vel_y) {
   this.segLength = 2;
   this.isPlayer = true;
 }
-player.push(new create_player(50, resolutionY - 50, 0, 0));
+player.push(new create_player(50, -200, 0, 0));
 
 function playerMovement() {
   player[0].position.x += player[0].vel_x;
@@ -31,7 +31,7 @@ function playerMovement() {
     if (player[0].position.y > resolutionY && player[0].position.x < 360) {
       player[0].position.y = resolutionY - player[0].radius - 20;
       player[0].vel_y = 0;
-    } 
+    }
     if (player[0].position.y > resolutionY && player[0].position.x > 360) {
       map = 5;
       loadMap(map);
@@ -163,20 +163,23 @@ function collisionCheckAttach(obstacle, object) {
 function navigateToNextMap() {
   var currentMap = map;
 
+  if (loopCompleted == true && map == 5) {
+    if (player[0].position.x < 0) {
+      player[0].position.x = 0;
+    }
+    if (player[0].position.x > resolutionX) {
+      player[0].position.x = resolutionX;
+    }
+    return;
+  }
+
   if (player[0].position.x > resolutionX + 50) {
     player[0].position.x = -20;
     player[0].position.y = player[0].position.y - 25;
     player[0].vel_y = 0;
     map++;
   }
-  /*
-  if (player[0].position.x < -50 && map > 1) {
-    player[0].position.x = resolutionX + 20;
-    player[0].position.y = player[0].position.y - 25;
-    player[0].vel_y = 0;
-    map--;
-  }
-  */
+
   if (player[0].position.x < 0) {
     player[0].position.x = 0;
   }
