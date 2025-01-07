@@ -204,7 +204,7 @@ function draw() {
     fill(0);
     stroke(1);
     textSize(12);
-    text('Year 3542, unknown planet.\n\n You’ve been snatched from your cozy nest! \n Use arrow keys to get back home (UP, LEFT, RIGHT)', resolutionX/2, 50);
+    text('Year 3542, unknown planet.\n\n You’ve been snatched from your cozy nest! \n Use arrow keys to get back home (UP, LEFT, RIGHT) -->', resolutionX/2, 50);
   }
 
   // Going to next map
