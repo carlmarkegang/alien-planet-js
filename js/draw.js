@@ -43,7 +43,8 @@ function draw() {
   fill(color(17, 12, 4));
   for (let i = 0; i < obstacle_array.length; i++) {
 
-    // Shadow
+    // Shadow test
+    /*
     if (map > 4) {
       strokeWeight(obstacle_array[i].radius * 2);
       stroke(color(0, 0, 0, 100));
@@ -58,6 +59,7 @@ function draw() {
       line(obstacle_array[i].position.x, obstacle_array[i].position.y, shadowX, shadowY);
       strokeWeight(0);
     }
+    */
 
     //ellipse(obstacle_array[i].position.x, obstacle_array[i].position.y, obstacle_array[i].radius * 2, obstacle_array[i].radius * 2);
     image(img_ball, obstacle_array[i].position.x - (obstacle_array[i].radius * 2 / 2), obstacle_array[i].position.y - (obstacle_array[i].radius * 2 / 2), obstacle_array[i].radius * 2, obstacle_array[i].radius * 2);
@@ -87,25 +89,6 @@ function draw() {
         fill(color(17, 12, 4));
         rect(obstacle_array_rect[i].position.x + 5, obstacle_array_rect[i].position.y + 19, 1, i - 10);
         rect(obstacle_array_rect[i].position.x + 15, obstacle_array_rect[i].position.y + 19, 1, i - 20);
-      }
-
-      
-      // Shadow
-      if (map > 4) {
-        strokeWeight(obstacle_array_rect[i].width);
-        stroke(color(0, 0, 0, 100));
-        fill(color(0, 0, 0, 100));
-        let directionX = obstacle_array_rect[i].position.x - player[0].position.x;
-        let directionY = obstacle_array_rect[i].position.y - player[0].position.y;
-        let length = Math.sqrt(directionX * directionX + directionY * directionY);
-        let unitX = directionX / length;
-        let unitY = directionY / length;
-        let shadowLength = 500;
-        let shadowX = obstacle_array_rect[i].position.x + unitX * shadowLength;
-        let shadowY = obstacle_array_rect[i].position.y + unitY * shadowLength;
-        line(obstacle_array_rect[i].position.x + (obstacle_array_rect[i].width/2) , obstacle_array_rect[i].position.y + (obstacle_array_rect[i].height/2), shadowX, shadowY);
-        strokeWeight(0);
-        rect(obstacle_array_rect[i].position.x, obstacle_array_rect[i].position.y, obstacle_array_rect[i].width, obstacle_array_rect[i].height);
       }
 
       image(img_block, obstacle_array_rect[i].position.x, obstacle_array_rect[i].position.y, obstacle_array_rect[i].width, obstacle_array_rect[i].height);
@@ -140,7 +123,7 @@ function draw() {
     fill(color(200, 30, 30));
     ellipse(enemy_1[e_1].position.x, enemy_1[e_1].position.y, enemy_1[e_1].radius * 2, enemy_1[e_1].radius * 2);
 
-    collisionCheckAttach(enemy_1[e_1], player[0])
+    collisionCheckAttach(enemy_1[e_1], player[0]);
   }
 
   // Enemy 2
@@ -177,6 +160,21 @@ function draw() {
     dragSegment(i2 + 1, player[0].segments[i2].x, player[0].segments[i2].y, player[0]);
   }
 
+  // Friend
+  for (let i = 0; i < friend.length; i++) {
+    friendMovement(i);
+    fill(color(friend[i].bloodCollectedLevel, 50, 50));
+    ellipse(friend[i].position.x, friend[i].position.y, friend[i].radius * 2, friend[i].radius * 2);
+    friendDragSegment(1, friend[i].segments[2].x, friend[i].segments[2].y, friend[i], true);
+    friendDragSegment(0, friend[i].position.x, friend[i].position.y, friend[i]);
+    for (var i2 = 0; i2 < friend[i].segments.length - 1; i2++) {
+      friendDragSegment(i2 + 1, friend[i].segments[i2].x, friend[i].segments[i2].y, friend[i]);
+    }
+
+    for (let e_1 = 0; e_1 < enemy_1.length; e_1++) {
+      friendCollisionCheckAttach(enemy_1[e_1], friend[i]);
+    }
+  }
 
   // Enemy 3
   fill(color(17, 12, 4))
@@ -195,6 +193,19 @@ function draw() {
     }
   }
 
+  if (loopCompleted == true && map == 5) {
+    fill(255);
+    stroke(1);
+    textSize(12);
+    text('You made it home!', resolutionX/2, 100);
+  }
+
+  if (loopCompleted == false && map == 1) {
+    fill(0);
+    stroke(1);
+    textSize(12);
+    text('Year 3542, unknown planet.\n\n You’ve been snatched from your cozy nest! \n User the arrow keys to get back home (up, left, right)', resolutionX/2, 50);
+  }
 
   // Going to next map
   navigateToNextMap();
